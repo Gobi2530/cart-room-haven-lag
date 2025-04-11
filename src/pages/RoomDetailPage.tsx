@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import Header from "@/components/Header";
@@ -17,7 +16,6 @@ const RoomDetailPage = () => {
   const [isLoading, setIsLoading] = useState(true);
   
   useEffect(() => {
-    // In a real app, this would be an API call
     setIsLoading(true);
     setTimeout(() => {
       const foundRoom = mockRooms.find(r => r.id === id) || null;
@@ -120,7 +118,7 @@ const RoomDetailPage = () => {
               <div className="flex flex-wrap gap-4 bg-muted p-4 rounded-md">
                 <div>
                   <p className="text-sm text-muted-foreground">Price</p>
-                  <p className="font-semibold text-xl">${room.price}<span className="text-sm font-normal text-muted-foreground">/night</span></p>
+                  <p className="font-semibold text-xl">₹{room.price}<span className="text-sm font-normal text-muted-foreground">/night</span></p>
                 </div>
                 
                 <div>

@@ -65,7 +65,7 @@ const RoomCard = ({ room }: RoomCardProps) => {
         
         <div className="flex justify-between items-center border-t pt-3 mt-3">
           <div>
-            <p className="text-xl font-bold text-lag-800">${price}<span className="text-sm font-normal text-gray-500">/night</span></p>
+            <p className="text-xl font-bold text-lag-800">₹{price}<span className="text-sm font-normal text-gray-500">/night</span></p>
             <p className="text-xs text-gray-500">{availableRooms} rooms available</p>
           </div>
           

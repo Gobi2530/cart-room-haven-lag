@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Room } from "@/components/RoomCard";
 import { Button } from "@/components/ui/button";
@@ -98,29 +97,29 @@ const AdminRoomTable = ({ rooms, onAddRoom, onUpdateRoom, onDeleteRoom }: AdminR
           </TableHeader>
           <TableBody>
             {filteredRooms.length > 0 ? (
-              filteredRooms.map((room) => (
-                <TableRow key={room.id}>
-                  <TableCell className="font-medium">{room.name}</TableCell>
+              filteredRooms.map((row) => (
+                <TableRow key={row.id}>
+                  <TableCell className="font-medium">{row.name}</TableCell>
                   <TableCell>
                     <Badge 
-                      variant={room.type === "single" ? "default" : "secondary"}
-                      className={room.type === "double" ? "bg-lag-200 text-lag-800 hover:bg-lag-300 hover:text-lag-800" : ""}
+                      variant={row.type === "unmarried" ? "default" : "secondary"}
+                      className={row.type === "double" ? "bg-lag-200 text-lag-800 hover:bg-lag-300 hover:text-lag-800" : ""}
                     >
-                      {room.type === "single" ? (
-                        <span className="flex items-center gap-1">
-                          <BedSingleIcon className="h-3 w-3" />
-                          Single
-                        </span>
+                      {row.type === "unmarried" ? (
+                        <div className="flex items-center gap-1">
+                          <BedSingleIcon className="h-4 w-4 text-primary" />
+                          <span>Unmarried Couples</span>
+                        </div>
                       ) : (
-                        <span className="flex items-center gap-1">
-                          <BedDoubleIcon className="h-3 w-3" />
-                          Double
-                        </span>
+                        <div className="flex items-center gap-1">
+                          <BedDoubleIcon className="h-4 w-4 text-secondary" />
+                          <span>Double Cart</span>
+                        </div>
                       )}
                     </Badge>
                   </TableCell>
                   <TableCell>
-                    {room.category === "premium" ? (
+                    {row.category === "premium" ? (
                       <Badge className="bg-amber-500 hover:bg-amber-600 flex items-center gap-1">
                         <PremiumIcon className="h-3 w-3" />
                         Premium
@@ -129,10 +128,10 @@ const AdminRoomTable = ({ rooms, onAddRoom, onUpdateRoom, onDeleteRoom }: AdminR
                       <Badge variant="outline">Normal</Badge>
                     )}
                   </TableCell>
-                  <TableCell>${room.price}/night</TableCell>
+                  <TableCell>${row.price}/night</TableCell>
                   <TableCell>
                     <Badge variant="outline" className="font-mono">
-                      {room.availableRooms}
+                      {row.availableRooms}
                     </Badge>
                   </TableCell>
                   <TableCell className="text-right space-x-2">
@@ -143,7 +142,7 @@ const AdminRoomTable = ({ rooms, onAddRoom, onUpdateRoom, onDeleteRoom }: AdminR
                       variant="ghost" 
                       size="icon" 
                       className="text-destructive hover:text-destructive"
-                      onClick={() => handleDeleteClick(room.id)}
+                      onClick={() => handleDeleteClick(row.id)}
                     >
                       <DeleteIcon className="h-4 w-4" />
                     </Button>

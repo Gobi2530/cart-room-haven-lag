@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { useToast } from "@/components/ui/use-toast";
 import { Room } from "@/components/RoomCard";
@@ -47,7 +46,6 @@ const BookingForm = ({ room, onSuccess }: BookingFormProps) => {
       [name]: type === "checkbox" ? checked : value
     });
     
-    // Clear error when field is edited
     if (errors[name]) {
       setErrors({
         ...errors,
@@ -62,7 +60,6 @@ const BookingForm = ({ room, onSuccess }: BookingFormProps) => {
       [name]: value
     });
     
-    // Clear error when field is edited
     if (errors[name]) {
       setErrors({
         ...errors,
@@ -74,7 +71,6 @@ const BookingForm = ({ room, onSuccess }: BookingFormProps) => {
   const validateForm = () => {
     const newErrors: Record<string, string> = {};
     
-    // Required fields validation
     const requiredFields = [
       "fullName", "email", "phone", "age", "maritalStatus", 
       "checkInDate", "checkInTime", "checkOutDate", "checkOutTime"
@@ -86,12 +82,10 @@ const BookingForm = ({ room, onSuccess }: BookingFormProps) => {
       }
     });
     
-    // Email validation
     if (formData.email && !/\S+@\S+\.\S+/.test(formData.email)) {
       newErrors.email = "Please enter a valid email address";
     }
     
-    // Age validation
     if (formData.age) {
       const age = parseInt(formData.age, 10);
       if (isNaN(age)) {
@@ -101,16 +95,14 @@ const BookingForm = ({ room, onSuccess }: BookingFormProps) => {
       }
     }
     
-    // Marital status validation for room type
     if (formData.maritalStatus && room.type) {
-      if (room.type === "single" && formData.maritalStatus === "married") {
-        newErrors.maritalStatus = "Single cart rooms are only for unmarried guests";
+      if (room.type === "unmarried" && formData.maritalStatus === "married") {
+        newErrors.maritalStatus = "Unmarried couples rooms are only for unmarried guests";
       } else if (room.type === "double" && formData.maritalStatus === "unmarried") {
         newErrors.maritalStatus = "Double cart rooms are only for married guests";
       }
     }
     
-    // Terms agreement validation
     if (!formData.agreeToTerms) {
       newErrors.agreeToTerms = "You must agree to the terms and conditions";
     }
@@ -125,7 +117,6 @@ const BookingForm = ({ room, onSuccess }: BookingFormProps) => {
     if (validateForm()) {
       setIsSubmitting(true);
       
-      // Simulate API call
       setTimeout(() => {
         setIsSubmitting(false);
         toast({
@@ -134,7 +125,6 @@ const BookingForm = ({ room, onSuccess }: BookingFormProps) => {
           variant: "default",
         });
         
-        // Reset form
         setFormData({
           fullName: "",
           email: "",
@@ -354,7 +344,7 @@ const BookingForm = ({ room, onSuccess }: BookingFormProps) => {
         <div>
           <p className="text-sm text-muted-foreground">Total Cost:</p>
           <p className="text-2xl font-bold text-lag-800">
-            ${room.price * formData.numberOfRooms}
+            ₹{room.price * formData.numberOfRooms}
             <span className="text-sm font-normal text-muted-foreground"> / night</span>
           </p>
         </div>

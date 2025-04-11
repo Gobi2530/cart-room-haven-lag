@@ -1,124 +1,185 @@
-
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { mockBookings, mockRooms } from "@/data/mockData";
 import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import {
-  Table,
-  TableHeader,
-  TableRow,
-  TableHead,
-  TableBody,
-  TableCell
-} from "@/components/ui/table";
-import { Badge } from "@/components/ui/badge";
-import { CalendarIcon, BedSingleIcon, BedDoubleIcon } from "@/components/Icons";
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { CalendarIcon, ClockIcon, BedDoubleIcon, BedSingleIcon } from "@/components/Icons";
+import { mockBookings, mockRooms } from "@/data/mockData";
+
+interface Booking {
+  id: string;
+  roomId: string;
+  guestName: string;
+  checkInDate: string;
+  checkOutDate: string;
+  status: string;
+}
 
 const BookingsPage = () => {
-  const [bookings] = useState(mockBookings);
+  const [bookings, setBookings] = useState<Booking[]>([]);
+  const [searchQuery, setSearchQuery] = useState<string>("");
+  const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
   
-  // In a real app, this would be fetched from an API or state management store
-  const getRoomDetails = (roomId: string) => {
-    return mockRooms.find(room => room.id === roomId);
-  };
+  useEffect(() => {
+    // In a real app, this would be an API call
+    setTimeout(() => {
+      setBookings(mockBookings);
+    }, 300);
+  }, []);
+  
+  const sortedBookings = [...bookings].sort((a, b) => {
+    const dateA = new Date(a.checkInDate).getTime();
+    const dateB = new Date(b.checkInDate).getTime();
+    
+    return sortOrder === "asc" ? dateA - dateB : dateB - dateA;
+  });
+  
+  const filteredBookings = sortedBookings.filter(booking =>
+    booking.guestName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    booking.roomId.includes(searchQuery)
+  );
   
   return (
     <div className="flex flex-col min-h-screen">
       <Header />
       
       <main className="flex-grow container py-8">
-        <div className="mb-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-          <div>
-            <h1 className="text-3xl font-bold">My Bookings</h1>
-            <p className="text-muted-foreground">
-              View and manage your room bookings
-            </p>
-          </div>
+        <div className="mb-8 flex justify-between items-center">
+          <h1 className="text-3xl font-bold">Bookings</h1>
           
-          <Link to="/rooms">
-            <Button>
-              <CalendarIcon className="mr-2 h-4 w-4" />
-              Book a Room
-            </Button>
-          </Link>
+          <div className="flex items-center gap-4">
+            <div className="relative">
+              <CalendarIcon className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+              <Input
+                type="date"
+                className="pl-10"
+              />
+            </div>
+            
+            <div className="relative">
+              <ClockIcon className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+              <Input
+                type="time"
+                className="pl-10"
+              />
+            </div>
+          </div>
         </div>
         
-        {bookings.length > 0 ? (
-          <div className="bg-white rounded-lg border overflow-hidden">
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>Room</TableHead>
-                  <TableHead>Check-in</TableHead>
-                  <TableHead>Check-out</TableHead>
-                  <TableHead>Status</TableHead>
-                  <TableHead className="text-right">Actions</TableHead>
-                </TableRow>
-              </TableHeader>
-              
-              <TableBody>
-                {bookings.map((booking) => {
-                  const room = getRoomDetails(booking.roomId);
+        <div className="mb-4 flex items-center justify-between">
+          <div className="flex-1">
+            <Input
+              type="text"
+              placeholder="Search by guest name or room ID..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+          </div>
+          
+          <div className="ml-4">
+            <Label htmlFor="sortOrder" className="mr-2">Sort by Check-in Date:</Label>
+            <Select value={sortOrder} onValueChange={setSortOrder}>
+              <SelectTrigger>
+                <SelectValue placeholder="Select order" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="asc">Ascending</SelectItem>
+                <SelectItem value="desc">Descending</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+        </div>
+        
+        <div className="rounded-md border">
+          <div className="overflow-x-auto">
+            <table className="min-w-full divide-y divide-gray-200">
+              <thead className="bg-gray-50">
+                <tr>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Booking ID
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Room
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Guest Name
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Check-in Date
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Check-out Date
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Status
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="bg-white divide-y divide-gray-200">
+                {filteredBookings.map((booking) => {
+                  const room = mockRooms.find(room => room.id === booking.roomId);
+                  
                   return (
-                    <TableRow key={booking.id}>
-                      <TableCell>
-                        <div className="flex items-center gap-3">
-                          {room?.type === "single" ? (
-                            <BedSingleIcon className="h-5 w-5 text-lag-600" />
-                          ) : (
-                            <BedDoubleIcon className="h-5 w-5 text-lag-600" />
-                          )}
-                          <div>
-                            <p className="font-medium">{room?.name || "Unknown Room"}</p>
-                            <p className="text-xs text-muted-foreground">
-                              {room?.type === "single" ? "Single Cart" : "Double Cart"} • 
-                              {room?.category === "premium" ? " Premium" : " Normal"}
-                            </p>
-                          </div>
-                        </div>
-                      </TableCell>
-                      <TableCell>{booking.checkInDate}</TableCell>
-                      <TableCell>{booking.checkOutDate}</TableCell>
-                      <TableCell>
-                        <Badge 
-                          variant={booking.status === "active" ? "default" : "outline"}
-                          className={
-                            booking.status === "active" 
-                              ? ""
-                              : "border-green-500 text-green-700 hover:bg-green-50"
-                          }
-                        >
-                          {booking.status === "active" ? "Active" : "Confirmed"}
-                        </Badge>
-                      </TableCell>
-                      <TableCell className="text-right">
-                        <Link to={`/rooms/${booking.roomId}`}>
-                          <Button variant="ghost" size="sm">
-                            View Room
-                          </Button>
-                        </Link>
-                      </TableCell>
-                    </TableRow>
+                    <tr key={booking.id}>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <div className="text-sm text-gray-900">{booking.id}</div>
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        {room ? (
+                          <Link to={`/rooms/${room.id}`} className="hover:underline">
+                            <div className="text-sm font-medium text-gray-900">
+                              {room.name}
+                            </div>
+                            <div className="text-xs text-gray-500">
+                              <span className="flex items-center gap-1">
+                                {room.type === "unmarried" ? (
+                                  <>
+                                    <BedSingleIcon className="h-4 w-4" />
+                                    <span>Unmarried Couples</span>
+                                  </>
+                                ) : (
+                                  <>
+                                    <BedDoubleIcon className="h-4 w-4" />
+                                    <span>Double Cart</span>
+                                  </>
+                                )}
+                              </span>
+                            </div>
+                          </Link>
+                        ) : (
+                          <div className="text-sm text-gray-900">Room Not Found</div>
+                        )}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <div className="text-sm text-gray-900">{booking.guestName}</div>
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <div className="text-sm text-gray-900">{booking.checkInDate}</div>
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <div className="text-sm text-gray-900">{booking.checkOutDate}</div>
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                          {booking.status}
+                        </span>
+                      </td>
+                    </tr>
                   );
                 })}
-              </TableBody>
-            </Table>
+              </tbody>
+            </table>
           </div>
-        ) : (
-          <div className="text-center py-16 bg-white rounded-lg border">
-            <h2 className="text-xl font-semibold mb-2">No Bookings Found</h2>
-            <p className="text-muted-foreground mb-6">
-              You haven't made any bookings yet.
-            </p>
-            <Link to="/rooms">
-              <Button>
-                Browse Rooms
-              </Button>
-            </Link>
-          </div>
-        )}
+        </div>
       </main>
       
       <Footer />
