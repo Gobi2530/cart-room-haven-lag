@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Header from "@/components/Header";
@@ -87,7 +88,10 @@ const BookingsPage = () => {
           
           <div className="ml-4">
             <Label htmlFor="sortOrder" className="mr-2">Sort by Check-in Date:</Label>
-            <Select value={sortOrder} onValueChange={setSortOrder}>
+            <Select 
+              value={sortOrder} 
+              onValueChange={(value: "asc" | "desc") => setSortOrder(value)}
+            >
               <SelectTrigger>
                 <SelectValue placeholder="Select order" />
               </SelectTrigger>
