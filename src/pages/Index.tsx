@@ -21,7 +21,7 @@ const Index = () => {
                   Find Your Perfect <span className="text-lag-600">Room</span> at LAG
                 </h1>
                 <p className="text-muted-foreground text-lg md:text-xl max-w-[600px]">
-                  Experience comfort and luxury with our specially designed rooms for both single and married guests.
+                  Experience comfort and luxury with our specially designed rooms for both unmarried couples and married guests.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 pt-4">
                   <Link to="/rooms">
@@ -62,21 +62,21 @@ const Index = () => {
                 <div className="aspect-video overflow-hidden">
                   <img 
                     src="https://images.unsplash.com/photo-1566665797739-1674de7a421a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80" 
-                    alt="Single Cart Room"
+                    alt="Room for Unmarried Couples"
                     className="w-full h-full object-cover transition-transform hover:scale-105 duration-300"
                   />
                 </div>
                 <CardContent className="p-6">
                   <div className="flex items-center justify-between mb-4">
-                    <h3 className="text-2xl font-semibold">Single Cart Rooms</h3>
+                    <h3 className="text-2xl font-semibold">Rooms for Unmarried Couples</h3>
                     <BedSingleIcon className="h-6 w-6 text-lag-600" />
                   </div>
                   <p className="text-muted-foreground mb-6">
-                    Designed for unmarried guests, our single cart rooms offer comfort and privacy with all essential amenities.
+                    Designed for unmarried couples, our rooms offer comfort and privacy with all essential amenities.
                   </p>
-                  <Link to="/rooms?type=single">
+                  <Link to="/rooms?type=unmarried">
                     <Button variant="outline" className="group w-full">
-                      View Single Rooms
+                      View Rooms for Unmarried Couples
                       <ArrowRightIcon className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
                     </Button>
                   </Link>

@@ -59,7 +59,7 @@ const RoomGrid = ({ rooms }: RoomGridProps) => {
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="all">All Types</SelectItem>
-                  <SelectItem value="single">Single Cart</SelectItem>
+                  <SelectItem value="unmarried">Unmarried Couples</SelectItem>
                   <SelectItem value="double">Double Cart</SelectItem>
                 </SelectContent>
               </Select>

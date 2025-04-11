@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 export interface Room {
   id: string;
   name: string;
-  type: "single" | "double";
+  type: "unmarried" | "double";
   category: "normal" | "premium";
   price: number;
   availableRooms: number;
@@ -44,13 +44,13 @@ const RoomCard = ({ room }: RoomCardProps) => {
         <div className="flex justify-between items-start mb-2">
           <h3 className="font-semibold text-lg">{name}</h3>
           <Badge 
-            variant={type === "single" ? "default" : "secondary"}
+            variant={type === "unmarried" ? "default" : "secondary"}
             className={type === "double" ? "bg-lag-200 text-lag-800 hover:bg-lag-300 hover:text-lag-800" : ""}
           >
-            {type === "single" ? (
+            {type === "unmarried" ? (
               <span className="flex items-center gap-1">
                 <BedSingleIcon className="h-3 w-3" />
-                Single
+                Unmarried Couples
               </span>
             ) : (
               <span className="flex items-center gap-1">

@@ -4,13 +4,13 @@ import { Room } from "@/components/RoomCard";
 export const mockRooms: Room[] = [
   {
     id: "1",
-    name: "Cozy Single Room",
-    type: "single",
+    name: "Cozy Room for Unmarried Couples",
+    type: "unmarried",
     category: "normal",
     price: 89,
     availableRooms: 12,
     imageUrl: "https://images.unsplash.com/photo-1566665797739-1674de7a421a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80",
-    description: "A comfortable single cart room with all essential amenities for unmarried guests.",
+    description: "A comfortable room with all essential amenities for unmarried couples.",
   },
   {
     id: "2",
@@ -24,13 +24,13 @@ export const mockRooms: Room[] = [
   },
   {
     id: "3",
-    name: "Premium Single Suite",
-    type: "single",
+    name: "Premium Suite for Unmarried Couples",
+    type: "unmarried",
     category: "premium",
     price: 149,
     availableRooms: 5,
     imageUrl: "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
-    description: "Luxury single cart suite with premium amenities, a workspace, and complimentary breakfast.",
+    description: "Luxury suite for unmarried couples with premium amenities, a workspace, and complimentary breakfast.",
   },
   {
     id: "4",
@@ -44,13 +44,13 @@ export const mockRooms: Room[] = [
   },
   {
     id: "5",
-    name: "Economy Single Room",
-    type: "single",
+    name: "Economy Room for Unmarried Couples",
+    type: "unmarried",
     category: "normal",
     price: 69,
     availableRooms: 15,
     imageUrl: "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
-    description: "Budget-friendly single cart room with all the essentials for a comfortable stay.",
+    description: "Budget-friendly room for unmarried couples with all the essentials for a comfortable stay.",
   },
   {
     id: "6",
