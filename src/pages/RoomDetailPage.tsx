@@ -77,7 +77,7 @@ const RoomDetailPage = () => {
         
         <div className="grid lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2 space-y-6">
-            <div className="rounded-lg overflow-hidden">
+            <div className="rounded-md overflow-hidden">
               <img 
                 src={room.imageUrl || "/placeholder.svg"} 
                 alt={room.name}
@@ -90,13 +90,13 @@ const RoomDetailPage = () => {
                 <h1 className="text-3xl font-bold">{room.name}</h1>
                 <div className="flex gap-2">
                   <Badge 
-                    variant={room.type === "single" ? "default" : "secondary"}
-                    className={room.type === "double" ? "bg-lag-200 text-lag-800 hover:bg-lag-300 hover:text-lag-800" : ""}
+                    variant={room.type === "unmarried" ? "default" : "secondary"}
+                    className={room.type === "double" ? "bg-lag-200 text-lag-800" : ""}
                   >
-                    {room.type === "single" ? (
+                    {room.type === "unmarried" ? (
                       <span className="flex items-center gap-1">
                         <BedSingleIcon className="h-3 w-3" />
-                        Single Cart
+                        Unmarried Couples
                       </span>
                     ) : (
                       <span className="flex items-center gap-1">
@@ -107,7 +107,7 @@ const RoomDetailPage = () => {
                   </Badge>
                   
                   {room.category === "premium" && (
-                    <Badge className="bg-amber-500 hover:bg-amber-600 flex items-center gap-1">
+                    <Badge className="bg-amber-500 flex items-center gap-1">
                       <PremiumIcon className="h-3 w-3" />
                       Premium
                     </Badge>
@@ -117,7 +117,7 @@ const RoomDetailPage = () => {
               
               <p className="text-lg text-muted-foreground">{room.description}</p>
               
-              <div className="flex flex-wrap gap-4 bg-muted p-4 rounded-lg">
+              <div className="flex flex-wrap gap-4 bg-muted p-4 rounded-md">
                 <div>
                   <p className="text-sm text-muted-foreground">Price</p>
                   <p className="font-semibold text-xl">${room.price}<span className="text-sm font-normal text-muted-foreground">/night</span></p>
@@ -130,9 +130,9 @@ const RoomDetailPage = () => {
                 
                 <div>
                   <p className="text-sm text-muted-foreground">Room Type</p>
-                  <p className="font-semibold">{room.type === "single" ? "Single Cart" : "Double Cart"}</p>
+                  <p className="font-semibold">{room.type === "unmarried" ? "Unmarried Couples" : "Double Cart"}</p>
                   <p className="text-xs text-muted-foreground">
-                    {room.type === "single" ? "For unmarried guests only" : "For married guests only"}
+                    {room.type === "unmarried" ? "For unmarried guests only" : "For married guests only"}
                   </p>
                 </div>
                 
@@ -217,7 +217,7 @@ const RoomDetailPage = () => {
                     <strong>Age Restriction:</strong> Guests must be at least 18 years old
                   </li>
                   <li>
-                    <strong>Room Type Restriction:</strong> {room.type === "single" ? "Single cart rooms are only for unmarried guests" : "Double cart rooms are only for married guests"}
+                    <strong>Room Type Restriction:</strong> {room.type === "unmarried" ? "Unmarried couple rooms are only for unmarried guests" : "Double cart rooms are only for married guests"}
                   </li>
                 </ul>
               </TabsContent>
@@ -226,14 +226,14 @@ const RoomDetailPage = () => {
                 <p className="text-muted-foreground">
                   Our property is located in the heart of the city, close to major attractions and transportation hubs.
                 </p>
-                <div className="aspect-video bg-muted flex items-center justify-center rounded-lg">
+                <div className="aspect-video bg-muted flex items-center justify-center rounded-md">
                   <p className="text-muted-foreground">Map view would be displayed here</p>
                 </div>
               </TabsContent>
             </Tabs>
           </div>
           
-          <div className="bg-white p-6 border rounded-lg shadow-sm h-fit sticky top-24">
+          <div className="bg-white p-6 border rounded-md h-fit sticky top-24">
             <div className="mb-4 flex items-center gap-2">
               <CalendarIcon className="h-5 w-5 text-lag-600" />
               <h2 className="text-xl font-semibold">Book This Room</h2>

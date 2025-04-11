@@ -23,17 +23,17 @@ const RoomCard = ({ room }: RoomCardProps) => {
   const { id, name, type, category, price, availableRooms, imageUrl, description } = room;
   
   return (
-    <div className="bg-white rounded-lg overflow-hidden border shadow-sm hover:shadow-md transition-shadow">
-      <div className="relative h-48 overflow-hidden">
+    <div className="bg-white rounded-md border">
+      <div className="h-48 overflow-hidden">
         <img 
           src={imageUrl || "/placeholder.svg"} 
           alt={name}
-          className="w-full h-full object-cover transition-transform hover:scale-105 duration-300"
+          className="w-full h-full object-cover"
         />
         {category === "premium" && (
           <div className="absolute top-2 right-2">
-            <Badge className="bg-amber-500 hover:bg-amber-600 flex items-center gap-1">
-              <PremiumIcon className="h-3 w-3" />
+            <Badge className="bg-amber-500">
+              <PremiumIcon className="h-3 w-3 mr-1" />
               Premium
             </Badge>
           </div>
@@ -42,10 +42,10 @@ const RoomCard = ({ room }: RoomCardProps) => {
       
       <div className="p-4">
         <div className="flex justify-between items-start mb-2">
-          <h3 className="font-semibold text-lg">{name}</h3>
+          <h3 className="font-medium text-lg">{name}</h3>
           <Badge 
             variant={type === "unmarried" ? "default" : "secondary"}
-            className={type === "double" ? "bg-lag-200 text-lag-800 hover:bg-lag-300 hover:text-lag-800" : ""}
+            className={type === "double" ? "bg-lag-200 text-lag-800" : ""}
           >
             {type === "unmarried" ? (
               <span className="flex items-center gap-1">
@@ -61,18 +61,18 @@ const RoomCard = ({ room }: RoomCardProps) => {
           </Badge>
         </div>
         
-        <p className="text-muted-foreground text-sm line-clamp-2 mb-3">{description}</p>
+        <p className="text-gray-600 text-sm mb-3">{description}</p>
         
         <div className="flex justify-between items-center border-t pt-3 mt-3">
           <div>
-            <p className="text-2xl font-bold text-lag-800">${price}<span className="text-sm font-normal text-muted-foreground">/night</span></p>
-            <p className="text-xs text-muted-foreground">{availableRooms} rooms available</p>
+            <p className="text-xl font-bold text-lag-800">${price}<span className="text-sm font-normal text-gray-500">/night</span></p>
+            <p className="text-xs text-gray-500">{availableRooms} rooms available</p>
           </div>
           
           <Link to={`/rooms/${id}`}>
-            <Button variant="outline" className="group">
+            <Button variant="outline">
               View Details
-              <ArrowRightIcon className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+              <ArrowRightIcon className="ml-2 h-4 w-4" />
             </Button>
           </Link>
         </div>
